@@ -1,3 +1,5 @@
-
 .vs/*
+*.dll
+bin/*
 obj/*
+ReferenceFiles/*.dll
