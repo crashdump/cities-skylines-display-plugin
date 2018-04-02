@@ -3,3 +3,4 @@
 bin/*
 obj/*
 ReferenceFiles/*.dll
+*.suo
