@@ -7,133 +7,88 @@ using ColossalFramework.UI;
 using ColossalFramework;
 using UnityEngine;
 
-namespace forceRes
-{
-    // The class will inherit (take on the base properties of and implment..) the IUserMod interface found in ICities. 
-    public class forceResName : IUserMod
-    {
-        internal const string MOD_NAME = "ForceRes";
-        internal const string MOD_DESC = "Force the screen resolution";
+namespace forceRes {
+    // The class will inherit (take on the base properties of and implment..) the IUserMod interface found in ICities.
+    public class forceResName : IUserMod {
         internal const string MOD_LOG_PREFIX = "ForceRes";
         internal const string MOD_CONFIGPATH = "ForceRes_Config.xml";
-        internal static bool DEBUG_LOG_ON = false;
-        internal static byte DEBUG_LOG_LEVEL = 0;
 
-        internal static bool isEnabled = false;
-        internal static bool isInited = false;
         internal static Configuration config;
 
+        public string Name {
+            get { return "ForceRes"; }
+        }
 
-        public string Name
-        {
-            get
-            {
-                return MOD_NAME;
-            }
- 
-        } 
+        public string Description {
+            get { return "Force the screen resolution"; }
+        }
 
-
-        public string Description
-        {
-            get
-            {
-                return MOD_DESC;
-            }
+        public void OnEnabled() {
+            Logger.dbgLog(Name + " has been enabled.");
+            DoInit();
         }
 
 
-        public void forceRes()
-        {
-            Logger.dbgLog(forceResName.MOD_NAME + " has been loaded.");
-
+        public void OnDisabled() {
         }
 
 
-        public void OnEnabled()
-        {
-            isEnabled = true;
-            Logger.dbgLog(forceResName.MOD_NAME + " has been enabled.");
-            Do_Init();
-        }
-
-
-        public void OnDisabled()
-        {
-            isEnabled = false;
-        }
-
-
-        private void Do_Init()
-        {
+        private void DoInit() {
             Helper.ReloadConfigValues(false, false);
         }
 
 
-        public void OnSettingsUI(UIHelperBase helper)
-        {
-            try
-            {
+        public void OnSettingsUI(UIHelperBase helper) {
+            try {
                 UIHelperBase group = helper.AddGroup("ForceRes");
                 group.AddTextfield("Horizontal ", "3840", OnChangeHorizontalResolution);
                 group.AddTextfield("Vertical", "1600", OnChangeVerticalResolution);
                 group.AddCheckbox("Fullscreen", config.gameFullscreen, OnChangeFullscreen);
-
-                group.AddCheckbox("Enable Verbose Logging", DEBUG_LOG_ON, AutoShowChecked);
-
+                group.AddCheckbox("Enable Verbose Logging", config.DebugLogging, OnChangeVerboseLogging);
                 group.AddSpace(16);
                 group.AddButton("Save", SaveConfigFile);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Logger.dbgLog("Error in settings panel.", ex, true);
             }
         }
 
 
-        private void OnChangeFullscreen(bool bValue)
-        {
+        private void OnChangeFullscreen(bool bValue) {
             config.gameFullscreen = bValue;
             Configuration.Serialize(MOD_CONFIGPATH, config);
         }
 
 
-        private void OnChangeHorizontalResolution(string sValue)
-        {
+        private void OnChangeHorizontalResolution(string sValue) {
             try {
                 config.gameResolutionHorizontal = Int32.Parse(sValue);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Logger.dbgLog("Error: invalid value ?", ex, true);
             }
         }
 
-        private void OnChangeVerticalResolution(string sValue)
-        {
+        private void OnChangeVerticalResolution(string sValue) {
             try {
                 config.gameResolutionVertical = Int32.Parse(sValue);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Logger.dbgLog("Error: invalid value ?", ex, true);
             }
         }
 
 
-        private void AutoShowChecked(bool bValue)
-        {
-            config.AutoShowOnMapLoad = bValue; 
-            Configuration.Serialize(MOD_CONFIGPATH, config); 
+        private void OnChangeVerboseLogging(bool bValue) {
+            config.DebugLogging = bValue;
+            Configuration.Serialize(MOD_CONFIGPATH, config);
         }
 
 
-        private void SaveConfigFile()
-        {
+        private void SaveConfigFile() {
+            Configuration.Serialize(MOD_CONFIGPATH, config);
+            ApplyConfig();
+        }
+
+        public void ApplyConfig() {
             Screen.SetResolution(config.gameResolutionHorizontal, config.gameResolutionVertical, config.gameFullscreen);
-
-            Configuration.Serialize(MOD_CONFIGPATH,config);
         }
-
     }
 }

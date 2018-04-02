@@ -11,10 +11,8 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using UnityEngine;
 
-namespace forceRes
-{
-	public class Loader : LoadingExtensionBase
-	{
+namespace forceRes {
+	public class Loader : LoadingExtensionBase {
         public static UIView parentGuiView;     //this holds our refference to the game main UIView object.
         internal static bool isGuiRunning = false;
         
@@ -34,8 +32,7 @@ namespace forceRes
         /// OnCreated in mind.
         /// </summary>
         /// <param name="loading">the games 'loading' object which doesn't have much use this early</param>
-        public override void OnCreated(ILoading loading)
-        {
+        public override void OnCreated(ILoading loading) {
             base.OnCreated(loading); //Since we're overriding base object here go run the base objects version first.
 
             // Try\Catch error handling - I'm assume the reader here knows the basics of this and why it's used in C#
@@ -45,18 +42,17 @@ namespace forceRes
             // so if your mod shits the bed in one of these call everyone else's mod after you will NOT
             // have these calls invoked.  Unless they're running the Isolated Failures mod of course.
 
-            try
-            {
-                if (forceResName.DEBUG_LOG_ON) { Logger.dbgLog("Reloading config before mapload."); }
+            try {
+                if (forceResName.config.DebugLogging) { Logger.dbgLog("Reloading config before mapload."); }
                 // *reload config values again after map load. This should not be problem atm.
                 // *So long as we do this before OnLevelLoaded we should be ok;
                 // *In theory this allows someone to go make some manual adjustments in your
                 //  config file that don't have options screen settings and still let them be used
                 //  without the user having to exit the game and come back just to have them get used.
                 Helper.ReloadConfigValues(false, false);
+            } catch (Exception ex) { 
+                Logger.dbgLog("Error:", ex, true); 
             }
-            catch (Exception ex)
-            { Logger.dbgLog("Error:", ex, true); }
         }
 
 
@@ -66,13 +62,14 @@ namespace forceRes
         /// That means the game data has all been read from your file and the simulation is ready to go.
         /// </summary>
         /// <param name="mode">a LoadMode enum (ie newgame,newmap,loadgame,loadmap,newasset,loadassett)</param>
-        public override void OnLevelLoaded(LoadMode mode)
-        {
+        public override void OnLevelLoaded(LoadMode mode) {
             base.OnLevelLoaded(mode);  //call the original implemenation first if does anything
+
             CurrentLoadMode = mode;
-            try
-            {
-                if (forceResName.DEBUG_LOG_ON && forceResName.DEBUG_LOG_LEVEL > 0) { Logger.dbgLog("LoadMode:" + mode.ToString()); }
+            try {
+                if (forceResName.config.DebugLogging && forceResName.config.DebugLoggingLevel > 0) { 
+                    Logger.dbgLog("LoadMode:" + mode.ToString()); 
+                }
 
                 // Do stuff here
             }
@@ -85,11 +82,9 @@ namespace forceRes
         /// This is called by the game when the map as fully unloaded and released, 
         /// it's basically the opposite\counterpart to OnCreated()
         /// </summary>
-        public override void OnReleased()
-        {
+        public override void OnReleased() {
             base.OnReleased();
-            if (forceResName.DEBUG_LOG_ON) { Logger.dbgLog ("Releasing Completed."); }
+            if (forceResName.config.DebugLogging) { Logger.dbgLog ("Releasing Completed."); }
         }
-
 	}
 }
