@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using UnityEngine;
 
 namespace forceRes {
     public class Helper {
@@ -22,8 +23,8 @@ namespace forceRes {
             try {
                 if (forceReRead) {
                     forceResName.config = null;
-                    if (forceResName.config.DebugLogging && forceResName.config.DebugLoggingLevel >= 1) {
-                        Logger.dbgLog("Config wipe requested.");
+                    if (forceResName.config.logging) {
+                        Debug.Log("Config wipe requested.");
                     }
                 }
 
@@ -32,22 +33,22 @@ namespace forceRes {
                 if (forceResName.config == null) {
                     forceResName.config = new Configuration();
                     //reset of setting should pull defaults
-                    Logger.dbgLog("Existing config was null. Created new one.");
+                    Debug.Log("Existing config was null. Created new one.");
                     Configuration.Serialize(forceResName.MOD_CONFIGPATH, forceResName.config);
                 }
 
                 // set/refresh our vars by default.
                 if (forceResName.config != null && skipReloadVariables == false) {
-                    if (forceResName.config.DebugLogging && forceResName.config.DebugLoggingLevel >= 2) {
-                        Logger.dbgLog("Vars refreshed");
+                    if (forceResName.config.logging) {
+                        Debug.Log("Vars refreshed");
                     }
                 }
 
-                if (forceResName.config.DebugLogging & forceResName.config.DebugLoggingLevel >= 2) {
-                    Logger.dbgLog(string.Format("Reloaded Config data ({0}:{1} :{2})", forceReRead.ToString(), skipReloadVariables.ToString() ));
+                if (forceResName.config.logging) {
+                    Debug.Log(string.Format("Reloaded Config data ({0}:{1} :{2})", forceReRead.ToString(), skipReloadVariables.ToString() ));
                 }
             } catch (Exception ex) {
-                Logger.dbgLog("Exception while loading config values.", ex, true);
+                Debug.LogException(ex);
             }
         }
     }
