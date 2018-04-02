@@ -40,9 +40,7 @@ namespace forceRes {
 
             try {
                 using (var reader = new StreamReader(filename)) {
-                    var config = (Configuration)serializer.Deserialize(reader);
-                    ValidateConfig(ref config);
-                    return config;
+                    return (Configuration)serializer.Deserialize(reader);
                 }
             } catch(System.IO.FileNotFoundException ex4) {
                 Logger.dbgLog("config file not found. This is expected if no config file. \r\n", ex4, false);
@@ -55,16 +53,6 @@ namespace forceRes {
             }
 
             return null;
-        }
-
-        /// <summary>
-        /// Constrain certain values read in from the config file that will either cause issue or just make no sense.
-        /// </summary>
-        /// <param name="tmpConfig"> An instance of an initialized Configuration object (*byref*)</param>
-        public static void ValidateConfig(ref Configuration tmpConfig) {
-            //pass
-            //if (tmpConfig.gameResolutionVertical > 6000 | tmpConfig.gameResolutionVertical < 600 ) tmpConfig.gameResolutionVertical = 768;
-            //if (tmpConfig.gameResolutionHorizontal > 6000 | tmpConfig.gameResolutionHorizontal < 800) tmpConfig.gameResolutionHorizontal = 1024;
         }
     }
 }
