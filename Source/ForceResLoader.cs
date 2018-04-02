@@ -15,11 +15,11 @@ namespace forceRes {
 	public class Loader : LoadingExtensionBase {
         public static UIView parentGuiView;     //this holds our refference to the game main UIView object.
         internal static bool isGuiRunning = false;
-        
+
         // We store the loadmode here for later use by the gui, frankly you could use look it up over and over again
         // from simulation manager but this is more handy and useful later during mapunload\release to know what mode
         // we were loaded under... though technically for this example mod it doesn't actually matter.
-        internal static LoadMode CurrentLoadMode; 
+        internal static LoadMode CurrentLoadMode;
 
 
         /// <summary>
@@ -43,7 +43,9 @@ namespace forceRes {
             // have these calls invoked.  Unless they're running the Isolated Failures mod of course.
 
             try {
-                if (forceResName.config.DebugLogging) { Logger.dbgLog("Reloading config before mapload."); }
+                if (forceResName.config.DebugLogging) { 
+                    Logger.dbgLog("Reloading config before mapload."); 
+                }
                 // *reload config values again after map load. This should not be problem atm.
                 // *So long as we do this before OnLevelLoaded we should be ok;
                 // *In theory this allows someone to go make some manual adjustments in your
@@ -63,8 +65,7 @@ namespace forceRes {
         /// </summary>
         /// <param name="mode">a LoadMode enum (ie newgame,newmap,loadgame,loadmap,newasset,loadassett)</param>
         public override void OnLevelLoaded(LoadMode mode) {
-            base.OnLevelLoaded(mode);  //call the original implemenation first if does anything
-
+            base.OnLevelLoaded(mode); // call the original implemenation first if does anything
             CurrentLoadMode = mode;
             try {
                 if (forceResName.config.DebugLogging && forceResName.config.DebugLoggingLevel > 0) { 
@@ -72,19 +73,22 @@ namespace forceRes {
                 }
 
                 // Do stuff here
+            } catch(Exception ex) { 
+                Logger.dbgLog("Error:", ex, true);
             }
-            catch(Exception ex)
-            { Logger.dbgLog("Error:", ex, true); }
         }
 
 
         /// <summary>
-        /// This is called by the game when the map as fully unloaded and released, 
+        /// This is called by the game when the map as fully unloaded and released,
         /// it's basically the opposite\counterpart to OnCreated()
         /// </summary>
         public override void OnReleased() {
             base.OnReleased();
-            if (forceResName.config.DebugLogging) { Logger.dbgLog ("Releasing Completed."); }
+            if (forceResName.config.DebugLogging) { 
+                Logger.dbgLog ("Releasing Completed."); 
+            }
         }
+
 	}
 }

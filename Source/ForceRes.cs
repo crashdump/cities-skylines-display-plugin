@@ -28,22 +28,19 @@ namespace forceRes {
             DoInit();
         }
 
-
         public void OnDisabled() {
         }
-
 
         private void DoInit() {
             Helper.ReloadConfigValues(false, false);
         }
 
-
         public void OnSettingsUI(UIHelperBase helper) {
             try {
                 UIHelperBase group = helper.AddGroup("ForceRes");
-                group.AddTextfield("Horizontal ", "3840", OnChangeHorizontalResolution);
-                group.AddTextfield("Vertical", "1600", OnChangeVerticalResolution);
-                group.AddCheckbox("Fullscreen", config.gameFullscreen, OnChangeFullscreen);
+                group.AddTextfield("Width ", config.width.ToString(), OnChangeWidth);
+                group.AddTextfield("Height", config.height.ToString(), OnChangeHeight);
+                group.AddCheckbox("Fullscreen", config.fullscreen, OnChangeFullscreen);
                 group.AddCheckbox("Enable Verbose Logging", config.DebugLogging, OnChangeVerboseLogging);
                 group.AddSpace(16);
                 group.AddButton("Save", SaveConfigFile);
@@ -52,35 +49,29 @@ namespace forceRes {
             }
         }
 
-
-        private void OnChangeFullscreen(bool bValue) {
-            config.gameFullscreen = bValue;
-            Configuration.Serialize(MOD_CONFIGPATH, config);
+        private void OnChangeFullscreen(bool value) {
+            config.fullscreen = value;
         }
 
-
-        private void OnChangeHorizontalResolution(string sValue) {
+        private void OnChangeWidth(string value) {
             try {
-                config.gameResolutionHorizontal = Int32.Parse(sValue);
+                config.width = Int32.Parse(value);
             } catch (Exception ex) {
-                Logger.dbgLog("Error: invalid value ?", ex, true);
+                Logger.dbgLog("Error: invalid value '" + value + "'", ex, true);
             }
         }
 
-        private void OnChangeVerticalResolution(string sValue) {
+        private void OnChangeHeight(string value) {
             try {
-                config.gameResolutionVertical = Int32.Parse(sValue);
+                config.height = Int32.Parse(value);
             } catch (Exception ex) {
-                Logger.dbgLog("Error: invalid value ?", ex, true);
+                Logger.dbgLog("Error: invalid value '" + value + "'", ex, true);
             }
         }
 
-
-        private void OnChangeVerboseLogging(bool bValue) {
-            config.DebugLogging = bValue;
-            Configuration.Serialize(MOD_CONFIGPATH, config);
+        private void OnChangeVerboseLogging(bool value) {
+            config.DebugLogging = value;
         }
-
 
         private void SaveConfigFile() {
             Configuration.Serialize(MOD_CONFIGPATH, config);
@@ -88,7 +79,7 @@ namespace forceRes {
         }
 
         public void ApplyConfig() {
-            Screen.SetResolution(config.gameResolutionHorizontal, config.gameResolutionVertical, config.gameFullscreen);
+            Screen.SetResolution(config.width, config.height, config.fullscreen);
         }
     }
 }

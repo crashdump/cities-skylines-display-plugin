@@ -14,17 +14,16 @@ using System.IO;
 namespace forceRes {
     public class Helper {
         /// <summary>
-        /// Called to either initially load, or force a reload our config file var; called by mod initialization and again at mapload. 
+        /// Called to either initially load, or force a reload our config file var; called by mod initialization and again at mapload.
         /// </summary>
-        /// <param name="bForceReread">Set to true to flush the old object and create a new one.</param>
-        /// <param name="bNoReloadVars">Set this to true to NOT reload the values from the new read of config file to our class level counterpart vars</param>
-        public static void ReloadConfigValues(bool bForceReread, bool bNoReloadVars) {
+        /// <param name="forceReRead">Set to true to flush the old object and create a new one.</param>
+        /// <param name="skipReloadVariables">Set this to true to NOT reload the values from the new read of config file to our class level counterpart vars</param>
+        public static void ReloadConfigValues(bool forceReRead, bool skipReloadVariables) {
             try {
-
-                if (bForceReread) {
+                if (forceReRead) {
                     forceResName.config = null;
-                    if (forceResName.config.DebugLogging && forceResName.config.DebugLoggingLevel >= 1) { 
-                        Logger.dbgLog("Config wipe requested."); 
+                    if (forceResName.config.DebugLogging && forceResName.config.DebugLoggingLevel >= 1) {
+                        Logger.dbgLog("Config wipe requested.");
                     }
                 }
 
@@ -38,22 +37,18 @@ namespace forceRes {
                 }
 
                 // set/refresh our vars by default.
-                if (forceResName.config != null && bNoReloadVars == false) {
-                    if (forceResName.config.DebugLogging && forceResName.config.DebugLoggingLevel >= 2) { 
-                        Logger.dbgLog("Vars refreshed"); 
+                if (forceResName.config != null && skipReloadVariables == false) {
+                    if (forceResName.config.DebugLogging && forceResName.config.DebugLoggingLevel >= 2) {
+                        Logger.dbgLog("Vars refreshed");
                     }
                 }
 
-                if (forceResName.config.DebugLogging & forceResName.config.DebugLoggingLevel >= 2) { 
-                    Logger.dbgLog(string.Format("Reloaded Config data ({0}:{1} :{2})", bForceReread.ToString(), bNoReloadVars.ToString() )); 
+                if (forceResName.config.DebugLogging & forceResName.config.DebugLoggingLevel >= 2) {
+                    Logger.dbgLog(string.Format("Reloaded Config data ({0}:{1} :{2})", forceReRead.ToString(), skipReloadVariables.ToString() ));
                 }
-            } catch (Exception ex) { 
-                Logger.dbgLog("Exception while loading config values.", ex, true); 
+            } catch (Exception ex) {
+                Logger.dbgLog("Exception while loading config values.", ex, true);
             }
-
         }
-
-
     }
-
 }

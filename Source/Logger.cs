@@ -12,9 +12,9 @@ namespace forceRes
         // If more spaced is need it will auto grow, always x2 current size per growth. So if you know you need to log
         // a huge amount like say 64k or larger, fire up a different stringbuilder with the larger size for that.
         // no need for the generic logger to be much bigger then say 4k - that' big enough for a full stack trace.
-        private static StringBuilder logSB = new StringBuilder(1024); 
-        
-        
+        private static StringBuilder logSB = new StringBuilder(1024);
+
+
         /// <summary>
         /// Our LogWrapper...used to log things so that they have our prefix prepended and logged either to custom file or not.
         /// </summary>
@@ -79,7 +79,7 @@ namespace forceRes
         /// <summary>
         /// Our LogWrapper...used to log larger amounts of text to custom file or not.
         /// * This one different then dbglog in that we create the StringBuilder for each call.
-        /// * It's meant to be used so we don't auto-grow the regular static logSB object that stay around in memory 
+        /// * It's meant to be used so we don't auto-grow the regular static logSB object that stay around in memory
         /// * so we don't use unneccessary amounts. Yes it's sort of anal since I already have a size check above.
         /// </summary>
         /// <param name="sText">Text to log</param>

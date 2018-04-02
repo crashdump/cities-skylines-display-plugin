@@ -14,9 +14,9 @@ namespace forceRes {
         public bool UseCustomLogFile = false;  //our setting to the custom log file name or not.
         public string CustomLogFilePath = "/tmp/forceResName_Log.txt";  //name of our default customlog filename
 
-        public int gameResolutionHorizontal = 3840;
-        public int gameResolutionVertical = 1600;
-        public bool gameFullscreen = true;
+        public int width = 3840;
+        public int height = 1600;
+        public bool fullscreen = true;
 
         public Configuration() { }
 
@@ -44,9 +44,7 @@ namespace forceRes {
                 }
             } catch(System.IO.FileNotFoundException ex4) {
                 Logger.dbgLog("config file not found. This is expected if no config file. \r\n", ex4, false);
-            }
-
-            catch (System.IO.IOException ex1) {
+            } catch (System.IO.IOException ex1) {
                 Logger.dbgLog("Filesystem or IO Error: \r\n", ex1, true);
             } catch (Exception ex1) {
                 Logger.dbgLog(ex1.Message.ToString() + "\r\n", ex1, true);
