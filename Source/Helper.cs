@@ -1,15 +1,4 @@
-﻿//using ICities;
-//using ColossalFramework.IO;
-//using ColossalFramework.Plugins;
-//using ColossalFramework.Packaging;
-//using ColossalFramework.Steamworks;
-//using ColossalFramework;
-//using UnityEngine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
+﻿using System;
 using UnityEngine;
 
 namespace forceRes {

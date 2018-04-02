@@ -33,7 +33,7 @@ namespace forceRes {
         using (var reader = new StreamReader(filename)) {
           return (Configuration)serializer.Deserialize(reader);
         }
-      } catch (System.IO.FileNotFoundException) {
+      } catch (FileNotFoundException) {
         return null;
       } catch (Exception ex) {
         if (forceResName.config.logging) {

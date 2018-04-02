@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ICities;
-using ColossalFramework.UI;
-using ColossalFramework;
 using UnityEngine;
 
 namespace forceRes {
