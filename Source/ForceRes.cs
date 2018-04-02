@@ -24,10 +24,10 @@ namespace ForceRes {
     public void OnSettingsUI(UIHelperBase helper) {
       try {
         var group = helper.AddGroup("ForceRes");
-        group.AddTextfield("Width ", config.width.ToString(), width => int.TryParse(width, out config.width));
-        group.AddTextfield("Height", config.height.ToString(), height => int.TryParse(height, out config.height));
-        group.AddCheckbox("Fullscreen", config.fullscreen, fullscreen => config.fullscreen = fullscreen);
-        group.AddCheckbox("Enable Verbose Logging", config.logging, logging => config.logging = logging);
+        group.AddTextfield("Width ", config.Width.ToString(), width => int.TryParse(width, out config.Width));
+        group.AddTextfield("Height", config.Height.ToString(), height => int.TryParse(height, out config.Height));
+        group.AddCheckbox("Fullscreen", config.Fullscreen, fullscreen => config.Fullscreen = fullscreen);
+        group.AddCheckbox("Enable Verbose Logging", config.Logging, logging => config.Logging = logging);
         group.AddSpace(16);
         group.AddButton("Save", () => {
           Configuration.Serialize(MOD_CONFIGPATH, config);

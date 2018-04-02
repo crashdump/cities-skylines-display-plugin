@@ -12,7 +12,7 @@ namespace ForceRes {
       try {
         if (forceReRead) {
           forceResName.config = null;
-          if (forceResName.config.logging) {
+          if (forceResName.config.Logging) {
             Debug.Log("Config wipe requested.");
           }
         }
@@ -28,12 +28,12 @@ namespace ForceRes {
 
         // set/refresh our vars by default.
         if (forceResName.config != null && skipReloadVariables == false) {
-          if (forceResName.config.logging) {
+          if (forceResName.config.Logging) {
             Debug.Log("Vars refreshed");
           }
         }
 
-        if (forceResName.config.logging) {
+        if (forceResName.config.Logging) {
           Debug.Log(string.Format("Reloaded Config data ({0}:{1} :{2})", forceReRead.ToString(), skipReloadVariables.ToString()));
         }
       } catch (Exception ex) {

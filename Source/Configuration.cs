@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace ForceRes {
   public class Configuration {
-    public bool logging = false;
+    public bool Logging = false;
 
-    public int width = 3840;
-    public int height = 1600;
-    public bool fullscreen = true;
+    public int Width = 3840;
+    public int Height = 1600;
+    public bool Fullscreen = true;
 
     public Configuration() { }
 
@@ -20,7 +20,7 @@ namespace ForceRes {
           serializer.Serialize(writer, config);
         }
       } catch (Exception ex) {
-        if (forceResName.config.logging) {
+        if (forceResName.config.Logging) {
           Debug.LogException(ex);
         }
       }
@@ -36,7 +36,7 @@ namespace ForceRes {
       } catch (FileNotFoundException) {
         return null;
       } catch (Exception ex) {
-        if (forceResName.config.logging) {
+        if (forceResName.config.Logging) {
           Debug.LogException(ex);
         }
       }
@@ -45,7 +45,7 @@ namespace ForceRes {
     }
 
     public void Apply() {
-      Screen.SetResolution(width, height, fullscreen);
+      Screen.SetResolution(Width, Height, Fullscreen);
     }
   }
 }

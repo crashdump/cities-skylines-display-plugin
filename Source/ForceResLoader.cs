@@ -6,7 +6,7 @@ namespace ForceRes {
     public override void OnCreated(ILoading loading) {
       base.OnCreated(loading);
 
-      if (forceResName.config.logging) {
+      if (forceResName.config.Logging) {
         Debug.Log("Reloading config before mapload.");
       }
 
