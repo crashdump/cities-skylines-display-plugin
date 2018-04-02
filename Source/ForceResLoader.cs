@@ -1,7 +1,7 @@
 ﻿using ICities;
 using UnityEngine;
 
-namespace forceRes {
+namespace ForceRes {
   public class Loader : LoadingExtensionBase {
     public override void OnCreated(ILoading loading) {
       base.OnCreated(loading);

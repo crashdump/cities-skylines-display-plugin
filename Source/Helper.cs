@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace forceRes {
+namespace ForceRes {
   public class Helper {
     /// <summary>
     /// Called to either initially load, or force a reload our config file var; called by mod initialization and again at mapload.

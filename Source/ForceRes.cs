@@ -2,7 +2,7 @@
 using ICities;
 using UnityEngine;
 
-namespace forceRes {
+namespace ForceRes {
   public class forceResName : IUserMod {
     internal const string MOD_CONFIGPATH = "ForceRes_Config.xml";
 

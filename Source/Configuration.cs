@@ -3,7 +3,7 @@ using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
 
-namespace forceRes {
+namespace ForceRes {
   public class Configuration {
     public bool logging = false;
 
