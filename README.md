@@ -1,5 +1,5 @@
-# cities-skylines_force-res
+# Cities Skylines Display Configuration Plugin 
 
-Mod for Cities Skylines.
+Mod for Cities: Skylines.
 
-Cities: Skylines does not currently support the resolution my monitor is running at (3840*1600), this mods enable you to change that resolution. Actually, you could configure CS to run at ANY resolutions.
+Unfortunately, the game does not currently support the native resolution of my monitor (3840x1600). This mod gives you the posibility to select any resolutions.
